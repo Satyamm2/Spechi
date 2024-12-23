@@ -1,108 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  Button,
-  TextField,
-  Grid,
-  Box,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
   Typography,
-  InputLabel,
-  FormControl,
-  IconButton,
+  Button,
+  Box,
 } from "@mui/material";
-import { useSession } from "next-auth/react";
-import axios from "axios";
-import { toast } from "react-toastify";
 
 export default function Posts() {
-  const [formData, setFormData] = useState({
-    description: "",
-    heading: "",
-  });
-  const [isSubmitting, setIsubmitting] = useState(false);
-  const { data: session, status } = useSession();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    setIsubmitting(true);
-
-    try {
-      const response = await axios.post("/api/blogpost-api", {
-        servicePost: "SETBLOGPOST",
-        user_id: session?.user?.id,
-        description: formData?.description,
-        heading: formData?.heading,
-      });
-
-      if (response.status === 201) {
-        toast.success(response?.statusText);
-        setFormData({});
-      } else {
-        toast.error(response?.message);
-      }
-    } catch (error) {
-      toast.error(response?.message);
-    } finally {
-      setIsubmitting(false);
-    }
-  };
-
-  if (status == "loading") {
-    return <div>Loading...</div>;
-  }
-
-  if (status == "unauthenticated") {
-    return <div>Unauthorized, please login...!!!</div>;
-  }
-
   return (
-    <Box sx={{ maxWidth: 800, margin: "0 auto", padding: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Create a Post
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12}>
-            <TextField
-              name="heading"
-              label="Heading"
-              fullWidth
-              variant="outlined"
-              required
-              value={formData.heading}
-              onChange={handleChange}
-            />
-          </Grid>
+    <>
+      <Box
+        sx={{
+          display: "flex",
+        //   justifyContent: "center", // Horizontally center the card
+        //   alignItems: "center", // Vertically center the card
+          height: "100vh", // Full viewport height
+          m: 2, // 10px margin around the box
+          width: '100%'
+        }}
+      >
+        <Card sx={{ width: "100%", maxWidth: 345 }}>
+          {/* Card Header with Title and Subheader */}
+          <CardHeader title="Card Title" subheader="Card Subheader" />
 
-          <Grid item xs={12}>
-            <TextField
-              name="description"
-              label="Story Description"
-              required
-              multiline
-              rows={6}
-              fullWidth
-              variant="outlined"
-              value={formData.description}
-              onChange={handleChange}
-            />
-          </Grid>
-        </Grid>
+          {/* Card Content */}
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              This is the content of the card. It can include text, images, or
+              other components.
+            </Typography>
+          </CardContent>
 
-        <Box sx={{ marginTop: 3 }}>
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            {isSubmitting ? "Publishing..." : "Publish Post"}
-          </Button>
-        </Box>
-      </form>
-    </Box>
+          {/* Card Footer */}
+          <CardActions>
+            <Button size="small">Action 1</Button>
+            <Button size="small">Action 2</Button>
+          </CardActions>
+        </Card>
+      </Box>
+    </>
   );
 }

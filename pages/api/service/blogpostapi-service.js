@@ -44,7 +44,9 @@ const BlogPostService = {
           FROM
             public.posts p
           JOIN
-            public.users u ON p.user_id = u.id;
+            public.users u ON p.user_id = u.id
+          ORDER BY created_at DESC
+            ;
         `;
       const result = await pool.query(query);
       return result;
@@ -57,7 +59,7 @@ const BlogPostService = {
   getBlogPostOfLoggedInUser: async (id) => {
     try {
       const query = `
-          SELECT * FROM posts WHERE user_id = $1
+          SELECT * FROM posts WHERE user_id = $1 ORDER BY created_at DESC;
         `;
       const values = [id];
       const result = await pool.query(query, values);

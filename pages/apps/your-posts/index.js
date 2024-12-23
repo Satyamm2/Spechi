@@ -17,6 +17,7 @@ import axios from "axios";
 export default function LoggedInUserPosts() {
   const [posts, setPosts] = useState([]);
   const { data: session, status } = useSession();
+  console.log("posts", posts)
 
   useEffect(() => {
     if (status === "authenticated" && session?.user?.id) {

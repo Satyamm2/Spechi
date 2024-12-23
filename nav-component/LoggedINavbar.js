@@ -63,7 +63,7 @@ export default function LoggedInNavbar() {
                 onClose={handleMenuClose}
               >
                 <MenuItem onClick={handleMenuClose}>
-                  <Link href="/apps/posts" passHref>
+                  <Link href="/apps/posts-creation" passHref>
                     Create a Post
                   </Link>
                 </MenuItem>

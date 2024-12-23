@@ -52,7 +52,15 @@ export default function ExploreBlogs() {
           return (
             <>
               <Grid key={index} item xs={4}>
-                <Card sx={{ border: "1px solid #ccc" }}>
+                <Card
+                  sx={{
+                    border: "1px solid #ccc",
+                    cursor: "pointer",
+                    "&:hover": {
+                      borderColor: "#888", 
+                    },
+                  }}
+                >
                   <CardHeader title={ele?.heading || "No Title"} />
                   <Divider sx={{ mx: 1 }} />
                   <CardContent sx={{ height: 150, overflow: "auto" }}>
